@@ -6,7 +6,7 @@ $(document).ready(function(){
  function load_json_data(id, parent_id)
  {
   var html_code = '';
-  $.getJSON('/vendor_model_firmware', function(data){
+  $.getJSON('api/vendors', function(data){
    console.log( "success" );
    html_code += '<option value="">Select '+id+'</option>';
    $.each(JSON.parse(data), function(key, value){
