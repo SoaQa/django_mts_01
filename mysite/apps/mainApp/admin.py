@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Vendor, Device, FirmwareVersion
+from ..api.models import Vendor, Device, FirmwareVersion
 # Register your models here.
 
 

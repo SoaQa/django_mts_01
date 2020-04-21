@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .controller import views
+from ..api.controller import api
 
 urlpatterns = [
    path(r"", views.index, name="index"),
-   path(r"vendor_model_firmware/", views.get_vendor_model_firmware, name="chained_selects_data")
+   path(r"api/vendors", api.vendors, name="chained_selects_data")
 ]
