@@ -3,52 +3,46 @@ $(document).ready(function(){
 
  load_json_data('vendor');
 
- function load_json_data(id, parent_id)
- {
-  var html_code = '';
-  var url = '';
-  if(id == 'vendor') {
-    url = 'api/vendors';
-  }
-  else if (id == 'device'){
-      url = 'api/devices/'+ parent_id;
-  }
-  else if (id == 'firmware'){
-      url = 'api/firmwares/'+ parent_id;
-  }
-  $.getJSON(url, function(data){
-       html_code += '<option value="">Select ' + id + '</option>';
-       $.each(data, function (key, value) {
-           html_code += '<option value="' + value.id + '">' + value.name + '</option>';
-       });
-       $('#' + id).html(html_code);
-  });
+ function load_json_data(id, parent_id) {
+     var html_code = '';
+     var url = '';
+
+     switch (id) {
+         case 'vendor':
+             url = 'api/vendors';
+             break;
+         case 'device':
+             url = 'api/devices/' + parent_id;
+             break;
+         case 'firmware':
+             url = 'api/firmwares/' + parent_id;
+             break;
+     }
+
+    if (url != ''){
+         $.getJSON(url, function (data) {
+             html_code += '<option value="">Select ' + id + '</option>';
+             $.each(data, function (key, value) {
+                 html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+             });
+             $('#' + id).html(html_code);
+         }
+        );
+     }
  }
 
  $(document).on('change', '#vendor', function(){
-  var vendor_id = $(this).val();
-  if(vendor_id != '')
-  {
-   load_json_data('device', vendor_id);
-  }
-  else
-  {
+   var vendor_id = $(this).val();
    $('#device').html('<option value="">Select model</option>');
    $('#firmware').html('<option value="">Select firmware</option>');
-  }
+   load_json_data('device', vendor_id);
  });
 
 
  $(document).on('change', '#device', function(){
   var device_id = $(this).val();
-  if(device_id != '')
-  {
-   load_json_data('firmware', device_id);
-  }
-  else
-  {
    $('#firmware').html('<option value="">Select firmware</option>');
-  }
+   load_json_data('firmware', device_id);
  });
 });
 </script>
