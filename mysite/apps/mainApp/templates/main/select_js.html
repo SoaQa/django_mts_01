@@ -6,47 +6,45 @@ $(document).ready(function(){
  function load_json_data(id, parent_id)
  {
   var html_code = '';
-  $.getJSON('api/vendors', function(data){
-   console.log( "success" );
-   html_code += '<option value="">Select '+id+'</option>';
-   $.each(JSON.parse(data), function(key, value){
-    if(id == 'vendor')
-    {
-     if(value.parent_id == '0')
-     {
-      html_code += '<option value="'+value.id+'">'+value.name+'</option>';
-     }
-    }
-    else
-    {
-     if(value.parent_id == parent_id)
-     {
-      html_code += '<option value="'+value.id+'">'+value.name+'</option>';
-     }
-    }
-   });
-   $('#'+id).html(html_code);
-  });
+  var url = '';
+  if(id == 'vendor') {
+    url = 'api/vendors';
+  }
+  else if (id == 'device'){
+      url = 'api/devices/'+ parent_id;
+  }
+  else if (id == 'firmware'){
+      url = 'api/firmwares/'+ parent_id;
+  }
+  $.getJSON(url, function(data){
+       html_code += '<option value="">Select ' + id + '</option>';
+       $.each(data, function (key, value) {
+           html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+       });
+       $('#' + id).html(html_code);
 
+  });
  }
 
  $(document).on('change', '#vendor', function(){
   var vendor_id = $(this).val();
   if(vendor_id != '')
   {
-   load_json_data('model', vendor_id);
+   load_json_data('device', vendor_id);
   }
   else
   {
-   $('#model').html('<option value="">Select model</option>');
+   $('#device').html('<option value="">Select model</option>');
    $('#firmware').html('<option value="">Select firmware</option>');
   }
  });
- $(document).on('change', '#model', function(){
-  var model_id = $(this).val();
-  if(model_id != '')
+
+
+ $(document).on('change', '#device', function(){
+  var device_id = $(this).val();
+  if(device_id != '')
   {
-   load_json_data('firmware', model_id);
+   load_json_data('firmware', device_id);
   }
   else
   {
