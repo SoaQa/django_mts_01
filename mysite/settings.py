@@ -56,7 +56,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['mysite/apps/mainApp/templates/'],
+        'DIRS': [os.path.join(BASE_DIR, "apps", "mainApp", "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,13 +77,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 DATABASES = {
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'mts_database',
     },
-    'postgres': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mts_test',
+        'NAME': 'mts1',
         'USER': 'postgres',
         'PASSWORD': 'auth',
         'HOST': 'localhost',
@@ -125,6 +125,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/global_static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'mysite', 'global_static'),
+)
+

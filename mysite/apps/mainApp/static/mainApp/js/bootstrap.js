@@ -1620,7 +1620,7 @@
     DROPLEFT: 'dropleft',
     MENURIGHT: 'dropdown-menu-right',
     MENULEFT: 'dropdown-menu-left',
-    POSITION_STATIC: 'position-static'
+    POSITION_STATIC: 'position-global_static'
   };
   var Selector$4 = {
     DATA_TOGGLE: '[data-toggle="dropdown"]',
@@ -1736,7 +1736,7 @@
           if (typeof this._config.reference.jquery !== 'undefined') {
             referenceElement = this._config.reference[0];
           }
-        } // If boundary is not `scrollParent`, then set position to `static`
+        } // If boundary is not `scrollParent`, then set position to `global_static`
         // to allow the menu to "escape" the scroll parent's boundaries
         // https://github.com/twbs/bootstrap/issues/24251
 
@@ -1895,9 +1895,9 @@
             boundariesElement: this._config.boundary
           }
         }
-      }; // Disable Popper.js if we have a static display
+      }; // Disable Popper.js if we have a global_static display
 
-      if (this._config.display === 'static') {
+      if (this._config.display === 'global_static') {
         popperConfig.modifiers.applyStyle = {
           enabled: false
         };
@@ -2156,7 +2156,7 @@
     OPEN: 'modal-open',
     FADE: 'fade',
     SHOW: 'show',
-    STATIC: 'modal-static'
+    STATIC: 'modal-global_static'
   };
   var Selector$5 = {
     DIALOG: '.modal-dialog',
@@ -2324,7 +2324,7 @@
     _proto._triggerBackdropTransition = function _triggerBackdropTransition() {
       var _this3 = this;
 
-      if (this._config.backdrop === 'static') {
+      if (this._config.backdrop === 'global_static') {
         var hideEventPrevented = $.Event(Event$5.HIDE_PREVENTED);
         $(this._element).trigger(hideEventPrevented);
 

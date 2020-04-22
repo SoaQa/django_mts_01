@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 # Create your models here.
@@ -52,3 +53,15 @@ class FirmwareVersion(models.Model):
 
     def __str__(self):
         return self.version
+
+
+class Firmware(models.Model):
+    class Meta:
+        db_table = "firmwares"
+        constraints = [
+            CheckConstraint(
+                check=~Q(data=None), name="data_not_null"
+            ),
+        ]
+    version = models.ForeignKey(FirmwareVersion, on_delete=models.CASCADE)
+    data = JSONField(name="data")
